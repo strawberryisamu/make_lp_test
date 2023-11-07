@@ -1,16 +1,14 @@
 /** @type {import('next').NextConfig} */
 
 
-module.exports = nextConfig
-
 // next.config.js
-module.exports = {
-    experimental: {
-      appDir: true,
-    },
-  };
+// module.exports = {
+//     experimental: {
+//       appDir: true,
+//     },
+//   };
   
-/** @type {import('next').NextConfig} */
+// /** @type {import('next').NextConfig} */
 
 const branchName = process.env.BRANCH_NAME ? "/" + process.env.BRANCH_NAME : "";
 
