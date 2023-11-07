@@ -16,19 +16,33 @@ const Carousel = ({ interval = 3000 }) => {
     };
 
     const intervalId = setInterval(updateIndices, interval); // 指定された間隔でインデックスを更新する
+
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
     const setRealViewportHeight = () => {
       const realViewportHeight = window.innerHeight;
       setWindowHeight(realViewportHeight);
     };
-    // コンポーネントのマウント時に実行
-    setRealViewportHeight();
 
-    // ウィンドウのリサイズがあったときに実行
-    window.addEventListener('resize', setRealViewportHeight);
+    // モバイルの場合は一度だけ高さをセット
+    if (isMobile) {
+      setRealViewportHeight();
+    } else {
+      // PCの場合はリサイズイベントに反応する
+      window.addEventListener('resize', setRealViewportHeight);
+
+      // 最初の設定
+      setRealViewportHeight();
+
+      // クリーンアップ関数
+      return () => {
+        clearInterval(intervalId); // コンポーネントのクリーンアップ時にインターバルをクリア
+        window.removeEventListener('resize', setRealViewportHeight);
+      };
+    }
 
     // クリーンアップ関数
     return () => {
-      window.removeEventListener('resize', setRealViewportHeight);
       clearInterval(intervalId); // コンポーネントのクリーンアップ時にインターバルをクリア
     };
   }, [currentIndex, images.length, interval]);
