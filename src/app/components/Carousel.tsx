@@ -1,58 +1,43 @@
 import React, { useEffect, useState } from 'react';
 import '../../styles/carousel.css'; // 必要なスタイルをインポート
 
-const Carousel = ({ interval = 3000 }) => {
-  const images = ['image1.png', 'image2.png', 'image3.png'];
-  // 現在表示している画像のインデックスを管理するステート
-  const [currentIndex, setCurrentIndex] = useState(0); // 現在の画像インデックス
-  const [prevIndex, setPrevIndex] = useState<number | null>(null); // 前の画像インデックス
-  const [windowHeight, setWindowHeight] = useState(0);
-
+const Carousel: React.FC<{ interval?: number }> = ({ interval = 3000 }) => {
+  const images: string[] = ['image1.png', 'image2.png', 'image3.png'];
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [windowHeight, setWindowHeight] = useState<number>(0);
 
   useEffect(() => {
-    const updateIndices = () => {
-      setPrevIndex(currentIndex); // 現在のインデックスを前のインデックスに設定
-      setCurrentIndex((currentIndex + 1) % images.length); // 次のインデックスに更新
+    const updateIndices = (): void => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
     };
 
-    const intervalId = setInterval(updateIndices, interval); // 指定された間隔でインデックスを更新する
+    const intervalId = setInterval(updateIndices, interval);
 
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
-    const setRealViewportHeight = () => {
-      const realViewportHeight = window.innerHeight;
+    const setRealViewportHeight = (): void => {
+      const realViewportHeight: number = window.innerHeight;
       setWindowHeight(realViewportHeight);
     };
 
-    // モバイルの場合は一度だけ高さをセット
     if (isMobile) {
       setRealViewportHeight();
     } else {
-      // PCの場合はリサイズイベントに反応する
       window.addEventListener('resize', setRealViewportHeight);
-
-      // 最初の設定
       setRealViewportHeight();
-
-      // クリーンアップ関数
-      return () => {
-        clearInterval(intervalId); // コンポーネントのクリーンアップ時にインターバルをクリア
-        window.removeEventListener('resize', setRealViewportHeight);
-      };
     }
 
-    // クリーンアップ関数
     return () => {
-      clearInterval(intervalId); // コンポーネントのクリーンアップ時にインターバルをクリア
+      clearInterval(intervalId);
+      if (!isMobile) {
+        window.removeEventListener('resize', setRealViewportHeight);
+      }
     };
-  }, [currentIndex, images.length, interval]);
+  }, [images.length, interval]);
 
-
-
-const changeImage = (newIndex: number) => {
-  setCurrentIndex(newIndex);
-};
-
+  const changeImage = (newIndex: number): void => {
+    setCurrentIndex(newIndex);
+  };
 
   return (
     <div className="relative w-full" style={{ height: `${windowHeight}px` }}>
