@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/Footer.css'; // スタイルシートをインポート
+import '../../styles/footer.css'; // スタイルシートをインポート
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear(); // 現在の年を取得
