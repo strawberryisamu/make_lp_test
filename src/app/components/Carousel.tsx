@@ -6,6 +6,7 @@ const Carousel = ({ interval = 3000 }) => {
   // 現在表示している画像のインデックスを管理するステート
   const [currentIndex, setCurrentIndex] = useState(0); // 現在の画像インデックス
   const [prevIndex, setPrevIndex] = useState<number | null>(null); // 前の画像インデックス
+  const [windowHeight, setWindowHeight] = useState(0);
 
 
   useEffect(() => {
@@ -15,9 +16,23 @@ const Carousel = ({ interval = 3000 }) => {
     };
 
     const intervalId = setInterval(updateIndices, interval); // 指定された間隔でインデックスを更新する
+    const setRealViewportHeight = () => {
+      const realViewportHeight = window.innerHeight;
+      setWindowHeight(realViewportHeight);
+    };
+    // コンポーネントのマウント時に実行
+    setRealViewportHeight();
 
-    return () => clearInterval(intervalId); // コンポーネントのクリーンアップ時にインターバルをクリア
+    // ウィンドウのリサイズがあったときに実行
+    window.addEventListener('resize', setRealViewportHeight);
+
+    // クリーンアップ関数
+    return () => {
+      window.removeEventListener('resize', setRealViewportHeight);
+      clearInterval(intervalId); // コンポーネントのクリーンアップ時にインターバルをクリア
+    };
   }, [currentIndex, images.length, interval]);
+
 
 
 const changeImage = (newIndex: number) => {
@@ -26,7 +41,7 @@ const changeImage = (newIndex: number) => {
 
 
   return (
-    <div className="relative w-full h-screen">
+    <div className="relative w-full" style={{ height: `${windowHeight}px` }}>
       {images.map((image, index) => (
         <img
           key={image}

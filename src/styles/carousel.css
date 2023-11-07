@@ -33,19 +33,25 @@
   top: 50%; /* 縦方向の中央 */
   left: 5%; /* 左から10pxの余白を設定 */
   transform: translateY(-50%);
-  padding: 5px 10px; /* 上下に20px、左右に10pxのパディングを設定して縦長に見せる */
+  padding: 5px 8px; /* 上下に20px、左右に10pxのパディングを設定して縦長に見せる */
   background-color: rgba(0, 0, 0, 0.5); /* 背景色を半透明に設定 */
   border-radius: 25px; /* 枠線の角を丸くする */
-  border: 2px solid #fff; /* 白い枠線を設定 */
+  border: 1px solid #fff; /* 白い枠線を設定 */
 }
 
 .indicator {
-  width: 15px; /* 丸の幅を少し小さくする */
-  height: 15px; /* 丸の高さを少し小さくする */
+  width: 12px; /* 丸の幅を少し小さくする */
+  height: 12px; /* 丸の高さを少し小さくする */
   background-color: #777; /* 非選択の丸の色 */
   border-radius: 50%;
   margin: 20px auto; /* 丸同士の間隔と中央寄せ */
   transition: background-color 0.3s; /* 色の変化にアニメーションを設定 */
+}
+
+.indicator:first-child,
+.indicator:last-child {
+  margin-top: 5px; /* 上の余白を減らす */
+  margin-bottom: 5px; /* 下の余白を減らす */
 }
 
 .indicator.active {
