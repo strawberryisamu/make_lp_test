@@ -3,14 +3,12 @@
 
 const branchName = process.env.BRANCH_NAME ? "/" + process.env.BRANCH_NAME : "";
 
-const nextConfig = {
+module.exports = {
+  output: 'export',
   reactStrictMode: true,
   assetPrefix: branchName,
   basePath: branchName,
   experimental: {
     appDir: true,
   },
-  output: 'export',
 };
-
-module.exports = nextConfig;
