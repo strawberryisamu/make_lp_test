@@ -1,0 +1,112 @@
+* {
+  box-sizing: border-box; /* 全要素に対してボックスサイジングをborder-boxに設定 */
+  margin: 0; /* 全要素の外側の余白をリセット */
+  padding: 0; /* 全要素の内側の余白をリセット */
+}
+
+html, body {
+  height: 100%; /* htmlとbodyの高さを100%に設定して、全画面の高さを基準にする */
+  margin: 0; /* htmlとbodyの外側の余白をリセット */
+  padding: 0; /* htmlとbodyの内側の余白をリセット */
+}
+
+.image-gallery {
+  display: flex;        /* Flexbox レイアウトを有効にする */
+  flex-direction: row;  /* 要素を水平方向に並べる */
+  justify-content: left; /* 中央寄せにする */
+  align-items: center;  /* アイテムを垂直方向の中央に配置する */
+  gap: 16px;            /* 画像間に隙間を設ける */
+  overflow-x: auto;     /* 横スクロールを有効にする */
+  width: 100%;          /* コンテナの幅を100%に設定 */
+}
+
+.image-gallery img {
+  height: auto;         /* 高さを自動調整してアスペクト比を維持する */
+  object-fit: cover;    /* 画像の比率を保ちつつ要素に合わせてトリミングする */
+  border-radius: 8px;   /* 画像の角を丸くする */
+  flex: 0 0 auto;       /* flexアイテムが伸縮しないように設定 */
+}
+
+/* スマートフォンなどの小さなデバイス向け */
+@media (max-width: 600px) {
+  .image-gallery {
+    flex-direction: row; /* 小さい画面では画像を縦に並べる */
+    align-items: stretch;   /* アイテムをコンテナの幅いっぱいに広げる */
+  }
+}
+
+/* 既存のスタイルは変更せず、新しく追加するスタイル */
+.content-container {
+  display: flex; /* Flexbox レイアウトを有効にする */
+  flex-direction: column; /* 子要素を縦に並べる */
+  align-items: center; /* 水平方向の中央揃え */
+  justify-content: center; /* 垂直方向の中央揃え */
+  text-align: center; /* テキストを中央寄せにする */
+  gap: 20px; /* 要素間の間隔を設ける */
+}
+
+.fullscreen {
+  /* height: 100vh; */ /* 削除またはコメントアウトする */
+  display: flex; /* flexボックスモデルを使用 */
+  flex-direction: column; /* 子要素を縦に並べる */
+  justify-content: flex-start; /* 上端から並べる */
+  align-items: center; /* 水平方向の中央揃え */
+  background-color: white; /* セクションの背景色を白に設定 */
+  color: black;
+  gap: 50px; /* 要素間の間隔を設ける */
+  padding: 20px 0; /* 上下にパディングを追加する（例） */
+}
+
+.fullscreen img {
+  width: auto; /* 幅を自動に設定 */
+  max-width: 50%; /* 最大幅を親要素の幅に合わせる */
+  max-height: 50vh; /* 最大高さをビューポートの高さに合わせる */
+  object-fit: contain; /* 画像を枠内に収め、アスペクト比を維持する */
+}
+
+.fullscreen.description-section {
+  width: 80%; /* コンテナの幅を画面の幅の80%に設定 */
+  max-width: 800px; /* 最大幅を800pxに設定 */
+  margin: 0 auto; /* 上下はそのままで左右マージンを自動に設定して中央寄せ */
+  padding: 40px; /* 内部の余白を40pxに設定 */
+  border-radius: 4px; /* 角を少し丸める */
+  background-color: #fff; /* 背景色を白に設定 */
+  gap: 0px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* シャドウを付ける */
+}
+
+.description-section h2 {
+  position: relative; /* 下線を位置付けるための基準点 */
+  display: inline-block; /* タイトルの幅を内容に合わせる */
+  margin-bottom: 16px; /* タイトルの下に余白を設ける */
+  padding-bottom: 5px; /* 下線のための余白 */
+}
+
+.description-section h2:after {
+  content: ''; /* 疑似要素で下線を作成 */
+  position: absolute; /* 絶対位置 */
+  bottom: 0; /* タイトルの下端に位置 */
+  left: 0; /* 左端からスタート */
+  width: 50%; /* 下線の幅をタイトルの50%に設定 */
+  height: 2px; /* 下線の厚さを2pxに設定 */
+  background-color: #000; /* 下線の色を黒に設定 */
+}
+
+
+/* アニメーションが始まる前のデフォルトスタイル */
+.fadeIn {
+  opacity: 0; /* 初期状態は透明 */
+  visibility: hidden; /* 要素を非表示にする */
+  animation-name: fadeIn;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards; /* アニメーション終了後に最終状態を維持 */
+  animation-timing-function: ease-in; /* アニメーションの加速度を設定 */
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1; /* 完全に表示 */
+    visibility: visible; /* 要素を表示にする */
+  }
+}
+

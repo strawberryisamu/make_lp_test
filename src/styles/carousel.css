@@ -1,0 +1,73 @@
+/* CSSファイル (例: carousel.css) */
+
+/* .fade-in {
+    opacity: 0;
+    animation: fadeIn 1s forwards; 
+  }
+  
+  .fade-out {
+    opacity: 1;
+    animation: fadeOut 1s forwards; 
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  .transition-opacity {
+    transition: opacity 1s ease-in-out;
+  } */
+
+.carousel-indicators {
+  position: absolute;
+  top: 50%; /* 縦方向の中央 */
+  left: 5%; /* 左から10pxの余白を設定 */
+  transform: translateY(-50%);
+  padding: 5px 10px; /* 上下に20px、左右に10pxのパディングを設定して縦長に見せる */
+  background-color: rgba(0, 0, 0, 0.5); /* 背景色を半透明に設定 */
+  border-radius: 25px; /* 枠線の角を丸くする */
+  border: 2px solid #fff; /* 白い枠線を設定 */
+}
+
+.indicator {
+  width: 15px; /* 丸の幅を少し小さくする */
+  height: 15px; /* 丸の高さを少し小さくする */
+  background-color: #777; /* 非選択の丸の色 */
+  border-radius: 50%;
+  margin: 20px auto; /* 丸同士の間隔と中央寄せ */
+  transition: background-color 0.3s; /* 色の変化にアニメーションを設定 */
+}
+
+.indicator.active {
+  background-color: #fff; /* 選択された丸の色 */
+}
+
+/* carousel.css */
+@media (max-width: 768px) {
+    .logo {
+      max-width: 150px; /* smaller logo on tablet and smaller devices */
+    }
+    .scroll-indicator {
+      max-width: 30px; /* smaller scroll indicator on tablet and smaller devices */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .logo {
+      max-width: 100px; /* even smaller logo on mobile devices */
+    }
+    .scroll-indicator {
+      max-width: 20px; /* even smaller scroll indicator on mobile devices */
+    }
+  }
+  
